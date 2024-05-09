@@ -1,0 +1,482 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SimoFlask API",
+    "version": "1.5.2"
+  },
+  "paths": {
+    "/monitor/gprs": {
+      "get": {
+        "summary":"Datos de tarjetas",
+        "description": "Los datos necesarios para las tarjetas",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/station/all/{rango}": {
+      "get": {
+        "summary":"Datos de GPRS actuales",
+        "description": "Datos de las lluvias del día actual registrados por GPRS",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "rango",
+            "in": "path",
+            "description": "Rango de datos",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": 6
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa"
+          }
+        }
+      }
+    },
+    "/stationRad/all/{rango}": {
+      "get": {
+        "summary":"Datos de RADIO actuales",
+        "description": "Datos de las lluvias del día actual registrados por RADIO",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "rango",
+            "in": "path",
+            "description": "Rango de datos",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": 6
+            }
+          }
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa"
+          }
+        }
+      }
+    },
+    "/stationRad/historical/{day}": {
+      "get": {
+        "summary":"Datos de RADIO historico",
+        "description": "Datos de las lluvias del día seleccionado registrados por RADIO",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "description": "Rango de datos",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2024-01-14"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa"
+          }
+        }
+      }
+    },
+    "/station/historical/{day}": {
+      "get": {
+        "summary":"Datos de GPRS historico",
+        "description": "Datos de las lluvias del día seleccionado registrados por RADIO",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "description": "Rango de datos",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2024-01-14"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa"
+          }
+        }
+      }
+    },
+    "/pdf/GPRS": {
+      "get": {
+        "summary":"PDF actual",
+        "description": "responde con un arraybuffer del pdf con las isoyetas GPRS ",
+        "produces": [
+          "application/arraybuffer"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/pdf/RADIO": {
+      "get": {
+        "summary":"PDF actual",
+        "description": "responde con un arraybuffer del pdf con las isoyetas GPRS ",
+        "produces": [
+          "application/arraybuffer"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+
+
+    "/stationRad/pdf/historical": {
+      "post": {
+        "summary":"PDF historico",
+        "description": "Genera un PDF historico con los datos de RADIO",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/arraybuffer"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "day": {
+                  "type": "string",
+                  "example":"2023-9-15"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "tienes que recibirlo como 'arraybuffer(response)' y transformarlo con 'Uint8Array' "
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/station/pdf/historical": {
+      "post": {
+        "summary":"PDF historico",
+        "description": "Genera un PDF historico con los datos de GPRS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/arraybuffer"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "day": {
+                  "type": "string",
+                  "example":"2023-9-15"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "tienes que recibirlo como 'arraybuffer(response)' y transformarlo con 'Uint8Array' "
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/graphics/pres/RADIO": {
+      "post": {
+        "summary":"historico RADIO",
+        "description": "Genera los puntos para la grafica Historica en las estaciones RADIO",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "StationCode": {
+                  "type": "number",
+                  "example": 1001
+                },
+                "Ini": {
+                  "type": "string",
+                  "example": "2024-1-07"
+                },
+                "End": {
+                  "type": "string",
+                  "example":"2024-1-10"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "peticion valida"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/graphics/pres/GPRS": {
+      "post": {
+        "summary":"historico GPRS",
+        "description": "Genera los puntos para la grafica Historica en las estaciones GPRS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "StationCode": {
+                  "type": "number",
+                  "example": 1001
+                },
+                "Ini": {
+                  "type": "string",
+                  "example": "2024-1-07"
+                },
+                "End": {
+                  "type": "string",
+                  "example":"2024-1-10"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "peticion valida"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/graphics/gumbell/GPRS": {
+      "post": {
+        "summary":"puntos Gumbell",
+        "description": "Genera los puntos para la grafica Gumbell en las estaciones GPRS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "StationCode": {
+                  "type": "number",
+                  "example": 1001
+                },
+                "Ini": {
+                  "type": "string",
+                  "example": "2024-1-07"
+                },
+                "End": {
+                  "type": "string",
+                  "example":"2024-1-10"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "peticion valida"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/graphics/gumbell/RADIO":{
+      "post": {
+        "summary":"puntos Gumbell",
+        "description": "Genera los puntos para la grafica Gumbell en las estaciones RADIO",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "StationCode": {
+                  "type": "number",
+                  "example": 1001
+                },
+                "Ini": {
+                  "type": "string",
+                  "example": "2024-1-07"
+                },
+                "End": {
+                  "type": "string",
+                  "example":"2024-1-10"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "peticion valida"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/hystorical/RADIO":{
+      "post": {
+        "summary":"Generar historicos",
+        "description": "Genera los CSV de Radio de los dias indicados a partir del dia actual",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "days": {
+                  "type": "number",
+                  "example": 10
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "peticion valida"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/hystorical/GPRS":{
+      "post": {
+        "summary":"Generar historicos",
+        "description": "Genera los CSV de GPRS de los dias indicados a partir del dia actual",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "days": {
+                  "type": "number",
+                  "example": 10
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "peticion valida"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    }
+
+
+
+
+
+
+  }
+}

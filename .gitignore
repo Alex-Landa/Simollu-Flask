@@ -1,0 +1,19 @@
+/datos
+/datosSQL
+/iso/*
+/Functions/__pycache__
+/Functions/mongoServe/__pycache__
+/Functions/mongoServe/PostgresData/__pycache__
+/Functions/mongoServe/PostgresData/__pycache__
+/Functions/mongoServe/respaldos internos
+/Functions/myServe/__pycache__
+/Functions/myServe/Conexiones/__pycache__
+/Functions/myServe/Conexiones/mySql.py
+/Functions/revision/__pycache__
+/Functions/Graphics/__pycache__
+/Functions/isoyetas/__pycache__
+/req_logs.txt
+/.env
+/resources/curvas de nivel ian.rar
+/resources/curvas de nivel ian
+/Notas_del autor.txt
